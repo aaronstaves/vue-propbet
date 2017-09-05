@@ -35,7 +35,10 @@ module.exports = {
     }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    "linebreak-style": ["error", (require("os").EOL === "\r\n" ? "windows" : "unix")]
+
+    // kind of hack since i'm working on linux and windows environments
+    //"linebreak-style": ["error", (require("os").EOL === "\r\n" ? "windows" : "unix")]
+    "linebreak-style": 0,
 
   }
 }

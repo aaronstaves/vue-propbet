@@ -15,7 +15,7 @@
             an allBurritos production
           </p>
         </div>
-      </section>  
+      </section>
     </div>
     <div class="column is-4">
       <section class="hero is-fullheight">
@@ -35,7 +35,7 @@
                     <p class="control has-icon has-icon-right">
                       <b-input
                         v-model="user.email"
-                        type="text" 
+                        type="text"
                         placeholder="user@example.org"
                         icon-pack="fa"
                         icon="user"
@@ -46,9 +46,9 @@
                   </b-field>
                   <b-field>
                     <p class="control has-icon has-icon-right">
-                      <b-input 
+                      <b-input
                         v-model="user.password"
-                        type="password" 
+                        type="password"
                         placeholder="●●●●●●●"
                         icon-pack="fa"
                         icon="lock"
@@ -56,13 +56,14 @@
                       >
 
                       </b-input>
-                    
+
                     </p>
                   </b-field>
-                  
+
                   <b-field>
                     <p class="control login">
-                      <button @click="login" class="button is-success is-outlined is-large is-fullwidth">Login</button>
+                      <button v-bind:class='{ hidden: !doSignup }' @click="login" class="button is-success is-outlined is-large is-fullwidth">Login</button>
+                      <button v-bind:class='{ hidden: doSignup }' @click="signup" class="button is-success is-outlined is-large is-fullwidth">Signup</button>
                     </p>
                   </b-field>
                 </div>
@@ -71,14 +72,17 @@
                     <a href="#">Forgot password</a>
                   </p>
                   <p class="has-text-centered">
-                    <a href="#">Sign Up</a>
+                    <a v-bind:class='{ hidden: !doSignup }' @click="doSignup = !doSignup" href="#">Sign Up</a>
+                  </p>
+                  <p v-bind:class='{ hidden: doSignup }' class="has-text-centered">
+                    <a @click="doSignup = !doSignup" href="#">Login</a>
                   </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>  
+      </section>
     </div>
   </div>
 </template>
@@ -92,10 +96,14 @@ export default {
         email: '',
         password: '',
       },
+      doSignup: false,
     };
   },
   methods: {
     login() {
+      console.dir(this.user);
+    },
+    signup() {
       console.dir(this.user);
     },
   },
@@ -105,6 +113,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.hidden {
+  display: none;
+}
 
 .avatar img {
   border-radius: 100px;
