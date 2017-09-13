@@ -31,6 +31,7 @@ new Vue({
           this.$router.push('/home');
         }
       } else {
+        this.user = null;
         this.$router.push('/');
       }
     });
@@ -38,7 +39,9 @@ new Vue({
     // setup router guarded routes
     router.beforeEach((to, from, next) => {
       // doesn't require auth, or user is logged in
-      if (this.user || !to.matched.some(record => record.meta.requiresAuth)) return next();
+      if (this.user || !to.matched.some(record => record.meta.auth)) {
+        return next();
+      }
 
       // otherwise redirect to login
       return next({

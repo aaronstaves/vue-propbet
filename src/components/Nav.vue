@@ -2,7 +2,7 @@
   <div class="container">
     <nav class="navbar has-shadow" id="top">
       <div class="navbar-brand">
-        <span 
+        <span
           @click="isNavActive = !isNavActive"
           v-bind:class="{ 'is-active': isNavActive }"
           class="navbar-burger">
@@ -18,19 +18,19 @@
         <div class="navbar-end">
           <router-link
             to="home"
-            v-bind:class="{ 'is-active': ( itemSelected == 'home' )}" 
+            v-bind:class="{ 'is-active': ( itemSelected == 'home' )}"
             class="navbar-item is-tab">
             Home
           </router-link>
           <router-link
-            to="profile" 
-            v-bind:class="{ 'is-active': ( itemSelected == 'profile' )}" 
+            to="profile"
+            v-bind:class="{ 'is-active': ( itemSelected == 'profile' )}"
             class="navbar-item is-tab">
             Profile
           </router-link>
           <router-link
             to="contests"
-            v-bind:class="{ 'is-active': ( itemSelected == 'contests' )}" 
+            v-bind:class="{ 'is-active': ( itemSelected == 'contests' )}"
             class="navbar-item is-tab">
             Contests
           </router-link>
@@ -61,11 +61,8 @@ export default {
   props: ['itemSelected'],
   methods: {
     logout() {
-      this.isLoading = true;
-      fb.auth().signOut().then(() => {
-        this.isLoading = false;
-        this.$router.go('/');
-      });
+      fb.auth().signOut();
+      this.$router.go('/');
     },
   },
 };

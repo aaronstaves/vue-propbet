@@ -13,13 +13,16 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login,
+      meta: {
+        auth: false,
+      },
     },
     {
       path: '/contests',
       name: 'Contests',
       component: Contests,
       meta: {
-        requiresAuth: true,
+        auth: true,
       },
     },
     {
@@ -27,7 +30,7 @@ export default new Router({
       name: 'Profile',
       component: Profile,
       meta: {
-        requiresAuth: true,
+        auth: true,
       },
     },
     {
@@ -35,7 +38,7 @@ export default new Router({
       name: 'Home',
       component: Home,
       meta: {
-        requiresAuth: true,
+        auth: true,
       },
     },
     // catch all redirect

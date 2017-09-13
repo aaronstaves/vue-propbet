@@ -106,6 +106,11 @@ export default {
     };
   },
   beforeCreate() {
+    fb.auth().onAuthStateChanged((fbUser) => {
+      if (fbUser) {
+        this.$router.go({ name: 'Home' });
+      }
+    });
   },
   methods: {
     login() {
