@@ -34,6 +34,7 @@
                   <b-field>
                     <p class="control has-icon has-icon-right">
                       <b-input
+                        @keyup.native.enter="submitForm"
                         v-model="user.email"
                         type="text"
                         placeholder="user@example.org"
@@ -47,6 +48,7 @@
                   <b-field>
                     <p class="control has-icon has-icon-right">
                       <b-input
+                        @keyup.native.enter="submitForm"
                         v-model="user.password"
                         type="password"
                         placeholder="●●●●●●●"
@@ -62,8 +64,8 @@
 
                   <b-field>
                     <p class="control login">
-                      <button v-bind:class='{ hidden: !doSignup }' @click="login" class="button is-success is-outlined is-large is-fullwidth">Login</button>
-                      <button v-bind:class='{ hidden: doSignup }' @click="signup" class="button is-success is-outlined is-large is-fullwidth">Signup</button>
+                      <button v-bind:class='{ hidden: isSignup }' @click="login" class="button is-success is-outlined is-large is-fullwidth">Login</button>
+                      <button v-bind:class='{ hidden: !isSignup }' @click="signup" class="button is-success is-outlined is-large is-fullwidth">Signup</button>
                     </p>
                   </b-field>
                 </div>
@@ -72,10 +74,10 @@
                     <a href="#">Forgot password</a>
                   </p>
                   <p class="has-text-centered">
-                    <a v-bind:class='{ hidden: !doSignup }' @click="doSignup = !doSignup" href="#">Sign Up</a>
+                    <a v-bind:class='{ hidden: isSignup }' @click="isSignup = !isSignup" href="#">Sign Up</a>
                   </p>
-                  <p v-bind:class='{ hidden: doSignup }' class="has-text-centered">
-                    <a @click="doSignup = !doSignup" href="#">Login</a>
+                  <p v-bind:class='{ hidden: !isSignup }' class="has-text-centered">
+                    <a @click="isSignup = !isSignup" href="#">Login</a>
                   </p>
                 </div>
               </div>
@@ -84,10 +86,13 @@
         </div>
       </section>
     </div>
+    <b-loading :active.sync="isLoading"></b-loading>
   </div>
 </template>
 
 <script>
+import { fb } from '@/helpers/firebase';
+
 export default {
   name: 'login',
   data() {
@@ -96,15 +101,54 @@ export default {
         email: '',
         password: '',
       },
-      doSignup: false,
+      isLoading: false,
+      isSignup: false,
     };
+  },
+  beforeCreate() {
   },
   methods: {
     login() {
-      console.dir(this.user);
+      this.isLoading = true;
+      fb.auth().signInWithEmailAndPassword(this.user.email, this.user.password)
+        .then(() => {
+          this.isLoading = false;
+          this.$toast.open({
+            type: 'is-success',
+            message: 'Logged in!',
+          });
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          this.$toast.open({
+            type: 'is-danger',
+            message: error.message,
+          });
+        });
     },
     signup() {
-      console.dir(this.user);
+      fb.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
+        .then(() => {
+          this.isLoading = false;
+          this.$toast.open({
+            type: 'is-success',
+            message: 'Signed up!',
+          });
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          this.$toast.open({
+            type: 'is-danger',
+            message: error.message,
+          });
+        });
+    },
+    submitForm() {
+      if (this.isSignup) {
+        this.signup();
+      } else {
+        this.login();
+      }
     },
   },
 };

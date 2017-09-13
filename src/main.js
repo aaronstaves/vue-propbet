@@ -2,17 +2,16 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Buefy from 'buefy';
-// import firebase from 'firebase';
-
 
 import App from './App';
 import router from './router';
-// import { config } from './helpers/firebase';
+import { fb } from './helpers/firebase';
 
 
 Vue.use(Buefy);
 
 Vue.config.productionTip = false;
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -20,16 +19,32 @@ new Vue({
   router,
   template: '<App/>',
   components: { App },
-  /*
+  data: {
+    user: null,
+  },
   created() {
-    firebase.initializeApp(config);
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.$router.push('/dashboard');
+    // setup login/auth observer
+    fb.auth().onAuthStateChanged((user) => {
+      this.user = user;
+      if (this.user) {
+        if (this.$route.path === '/') {
+          this.$router.push('/home');
+        }
       } else {
         this.$router.push('/');
       }
     });
+
+    // setup router guarded routes
+    router.beforeEach((to, from, next) => {
+      // doesn't require auth, or user is logged in
+      if (this.user || !to.matched.some(record => record.meta.requiresAuth)) return next();
+
+      // otherwise redirect to login
+      return next({
+        name: 'Login',
+        query: { redirect: to.fullPath },
+      });
+    });
   },
-  */
 });
