@@ -2,6 +2,12 @@
   <div class="container">
     <PropBetNav item-selected="profile"></PropBetNav>
 
+      <div>
+        <AvatarForm/>
+      </div>
+      <h1 class="avatar has-text-centered section">
+        <img src="../assets/avatar/burrito.gif">
+      </h1>
       <b-field label="Display Name">
           <b-input v-model="user.displayName"></b-input>
       </b-field>
@@ -34,11 +40,12 @@
 </template>
 <script>
 import PropBetNav from '@/components/Nav';
+import AvatarForm from '@/components/Profile/AvatarList';
 import { fb } from '@/helpers/firebase';
 
 export default {
   name: 'contests',
-  components: { PropBetNav },
+  components: { PropBetNav, AvatarForm },
   data() {
     return {
       isLoading: true,
@@ -83,15 +90,14 @@ export default {
       // if we're updating password, need to re-auth
       const credential = fb.auth.EmailAuthProvider.credential(email, password);
       if (newPassword !== '') {
-        promises.push(fbUser.reauthenticateWithCredential(credential));
-        promises.push(fbUser.updatePassword(newPassword));
+        promises.push(() => fbUser.reauthenticateWithCredential(credential));
+        promises.push(() => fbUser.updatePassword(newPassword));
       }
 
       // clicked save, assume we want to update other profile vars
-      promises.push(fbUser.updateProfile({ email, displayName }));
+      promises.push(() => fbUser.updateProfile({ email, displayName }));
 
-      // fbUser.updateProfile({ email, displayName })
-      Promise.all(promises)
+      promises.reduce((p, func) => p.then(func), Promise.resolve())
         .then(() => {
           this.isLoading = false;
           this.$toast.open({
@@ -116,5 +122,11 @@ export default {
 <style scoped>
 .save-button {
   padding: 0 25px 0 25px;
+}
+.avatar img {
+  border-radius: 100px;
+  padding: 5px;
+  border: 1px solid #dbdbdb;
+  cursor: pointer;
 }
 </style>
