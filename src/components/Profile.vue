@@ -1,13 +1,21 @@
 <template>
   <div class="container">
+
+    <b-modal :active.sync="isAvatarModalActive" has-modal-card>
+      <AvatarFormModal v-on:updatePhotoURL="updatePhotoURL"></AvatarFormModal>
+    </b-modal>
+
     <PropBetNav item-selected="profile"></PropBetNav>
 
-      <div>
-        <AvatarForm/>
+      <div
+        @click="isAvatarModalActive = true"
+        class="avatar has-text-centered section">
+        <img :src="user.photoURL">
+        <b-icon
+          pack="fa"
+          icon="edit">
+        </b-icon>
       </div>
-      <h1 class="avatar has-text-centered section">
-        <img src="../assets/avatar/burrito.gif">
-      </h1>
       <b-field label="Display Name">
           <b-input v-model="user.displayName"></b-input>
       </b-field>
@@ -40,18 +48,20 @@
 </template>
 <script>
 import PropBetNav from '@/components/Nav';
-import AvatarForm from '@/components/Profile/AvatarList';
+import AvatarFormModal from '@/components/Profile/AvatarListModal';
 import { fb } from '@/helpers/firebase';
 
 export default {
   name: 'contests',
-  components: { PropBetNav, AvatarForm },
+  components: { PropBetNav, AvatarFormModal },
   data() {
     return {
       isLoading: true,
+      isAvatarModalActive: false,
       user: {
         email: 'Loading...',
         displayName: 'Loading...',
+        photoURL: '/static/avatar/burrito.gif',
         password: '',
         newPassword: '',
       },
@@ -62,11 +72,17 @@ export default {
       if (fbUser) {
         this.user.email = fbUser.email;
         this.user.displayName = fbUser.displayName;
+        if (fbUser.photoURL) {
+          this.user.photoURL = fbUser.photoURL;
+        }
         this.isLoading = false;
       }
     });
   },
   methods: {
+    updatePhotoURL(newPhotoURL) {
+      this.user.photoURL = newPhotoURL;
+    },
     saveUser() {
       this.isLoading = true;
 
@@ -127,6 +143,10 @@ export default {
   border-radius: 100px;
   padding: 5px;
   border: 1px solid #dbdbdb;
+  width: 256px;
+  height: 256px;
+}
+.avatar {
   cursor: pointer;
 }
 </style>

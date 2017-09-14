@@ -28,7 +28,7 @@
             <div class="columns">
               <div class="column is-8 is-offset-2">
                 <h1 class="avatar has-text-centered section">
-                  <img src="../assets/avatar/burrito.gif">
+                  <img src="/static/avatar/burrito.gif">
                 </h1>
                 <div class="login-form">
                   <b-field>

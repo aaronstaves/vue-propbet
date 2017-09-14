@@ -4,7 +4,7 @@
         <div class="columns">
           <div class="column is-2">
             <div class="image is-128x128 avatar">
-              <img src="https://placehold.it/256x256">
+              <img :src="user.photoURL">
             </div>
           </div>
           <div class="column is-4 name">
@@ -50,6 +50,7 @@ export default {
       isLoading: true,
       user: {
         displayName: 'Loading...',
+        photoURL: '/static/avatar/burrito.gif',
       },
       live_contests: [],
       upcoming_contests: [],
@@ -60,6 +61,9 @@ export default {
     fb.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
         this.user.displayName = fbUser.displayName || fbUser.email;
+        if (fbUser.photoURL) {
+          this.user.photoURL = fbUser.photoURL;
+        }
         this.isLoading = false;
       }
     });
