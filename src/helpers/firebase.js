@@ -11,5 +11,6 @@ export const config = {
 
 firebase.initializeApp(config);
 export const fb = firebase;
+export const db = firebase.database();
 
 export default fb;
