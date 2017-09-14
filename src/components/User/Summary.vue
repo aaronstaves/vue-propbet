@@ -22,7 +22,7 @@
           </div>
           <div class="column is-2 likes has-text-centered">
             <p class="stat-val">{{ friends.length }}</p>
-            <p class="stat-key">Freinds</p>
+            <p class="stat-key">Friends</p>
           </div>
         </div>
       </div>
