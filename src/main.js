@@ -45,10 +45,7 @@ new Vue({
       }
 
       // otherwise redirect to login
-      return next({
-        name: 'Login',
-        query: { redirect: to.fullPath },
-      });
+      return next({ name: 'Login' });
     });
   },
 });

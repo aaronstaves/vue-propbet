@@ -126,7 +126,6 @@ export default {
           this.$toast.open({
             type: 'is-danger',
             message: `Error saving profile! ${error.message}`,
-            duration: 10000,
           });
         });
     },

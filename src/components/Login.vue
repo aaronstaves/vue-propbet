@@ -105,11 +105,12 @@ export default {
       isSignup: false,
     };
   },
-  beforeCreate() {
+  beforeRouteEnter(to, from, next) {
     fb.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
-        this.$router.go({ name: 'Home' });
+        next({ name: 'Home' });
       }
+      next();
     });
   },
   methods: {
