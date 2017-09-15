@@ -39,12 +39,24 @@ new Vue({
 
     // setup router guarded routes
     router.beforeEach((to, from, next) => {
-      // doesn't require auth, or user is logged in
-      if (this.user || !to.matched.some(record => record.meta.auth)) {
+      // have a user, let them into anything
+      if (this.user) {
+        // trying to go to the login page but logged in, bring 'em home
+        if (to.path === '/') {
+          return next({ name: 'Home' });
+        }
+
+        // otherwise just let them through
         return next();
       }
 
-      // otherwise redirect to login
+      // if it doesn't require auth, let 'em through
+      if (!to.matched.some(record => record.meta.auth)) {
+        return next();
+      }
+
+      // otherwise assume it's an auth'd endpoint and they're not logged in
+      // so redirect to login
       return next({ name: 'Login' });
     });
   },
