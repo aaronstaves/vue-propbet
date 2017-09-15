@@ -1,0 +1,82 @@
+warning: LF will be replaced by CRLF in src/App.vue.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in src/components/Home.vue.
+The file will have its original line endings in your working directory.
+[1mdiff --git a/src/App.vue b/src/App.vue[m
+[1mindex a548fa6..4f74a2b 100644[m
+[1m--- a/src/App.vue[m
+[1m+++ b/src/App.vue[m
+[36m@@ -20,9 +20,6 @@[m [mhtml,body {[m
+   margin: 0;[m
+ }[m
+ [m
+[31m-#app {[m
+[31m-  padding: 0 25px 40px 25px;[m
+[31m-}[m
+ </style>[m
+ [m
+ <style lang="scss">[m
+[1mdiff --git a/src/components/Home.vue b/src/components/Home.vue[m
+[1mindex e5fc9c6..7c452c8 100644[m
+[1m--- a/src/components/Home.vue[m
+[1m+++ b/src/components/Home.vue[m
+[36m@@ -1,7 +1,9 @@[m
+ <template>[m
+   <div class="container">[m
+     <PropBetNav item-selected="home"></PropBetNav>[m
+[31m-    <UserSummary/>[m
+[32m+[m[32m    <div class="content">[m
+[32m+[m[32m      <UserSummary/>[m
+[32m+[m[32m    </div>[m
+   </div>[m
+ </template>[m
+ <script>[m
+[36m@@ -23,5 +25,7 @@[m [mexport default {[m
+ [m
+ <!-- Add "scoped" attribute to limit CSS to this component only -->[m
+ <style scoped>[m
+[31m-[m
+[31m-</style>[m
+\ No newline at end of file[m
+[32m+[m[32m.content {[m
+[32m+[m[32m  padding: 0 25px 0 25px;[m
+[32m+[m[32m}[m
+[32m+[m[32m</style>[m
+[1mdiff --git a/src/components/Profile.vue b/src/components/Profile.vue[m
+[1mindex 63ec33b..690a11a 100644[m
+[1m--- a/src/components/Profile.vue[m
+[1m+++ b/src/components/Profile.vue[m
+[36m@@ -6,7 +6,7 @@[m
+     </b-modal>[m
+ [m
+     <PropBetNav item-selected="profile"></PropBetNav>[m
+[31m-[m
+[32m+[m[32m    <div class="content">[m
+       <div[m
+         @click="isAvatarModalActive = true"[m
+         class="avatar has-text-centered section">[m
+[36m@@ -39,10 +39,10 @@[m
+ [m
+       <b-field grouped position="is-right">[m
+         <p class="control">[m
+[31m-          <button @click="saveUser" class="save-button button is-success">save</button>[m
+[32m+[m[32m          <button @click="saveUser" class="save-button button is-success">Save</button>[m
+         </p>[m
+       </b-field>[m
+[31m-[m
+[32m+[m[32m    </div>[m
+     <b-loading :active.sync="isLoading"></b-loading>[m
+   </div>[m
+ </template>[m
+[36m@@ -135,6 +135,9 @@[m [mexport default {[m
+ [m
+ <!-- Add "scoped" attribute to limit CSS to this component only -->[m
+ <style scoped>[m
+[32m+[m[32m.content {[m
+[32m+[m[32m  padding: 10px 25px 10px 25px;[m
+[32m+[m[32m}[m
+ .save-button {[m
+   padding: 0 25px 0 25px;[m
+ }[m
+warning: LF will be replaced by CRLF in src/components/Profile.vue.
+The file will have its original line endings in your working directory.

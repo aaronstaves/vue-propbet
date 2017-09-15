@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <PropBetNav item-selected="home"></PropBetNav>
-    <UserSummary/>
+    <div class="content">
+      <UserSummary/>
+    </div>
   </div>
 </template>
 <script>
@@ -23,5 +25,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.content {
+  padding: 0 25px 0 25px;
+}
 </style>

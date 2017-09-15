@@ -6,7 +6,7 @@
     </b-modal>
 
     <PropBetNav item-selected="profile"></PropBetNav>
-
+    <div class="content">
       <div
         @click="isAvatarModalActive = true"
         class="avatar has-text-centered section">
@@ -39,10 +39,10 @@
 
       <b-field grouped position="is-right">
         <p class="control">
-          <button @click="saveUser" class="save-button button is-success">save</button>
+          <button @click="saveUser" class="save-button button is-success">Save</button>
         </p>
       </b-field>
-
+    </div>
     <b-loading :active.sync="isLoading"></b-loading>
   </div>
 </template>
@@ -135,6 +135,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.content {
+  padding: 10px 25px 10px 25px;
+}
 .save-button {
   padding: 0 25px 0 25px;
 }

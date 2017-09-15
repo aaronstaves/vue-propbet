@@ -20,9 +20,6 @@ html,body {
   margin: 0;
 }
 
-#app {
-  padding: 0 25px 40px 25px;
-}
 </style>
 
 <style lang="scss">
