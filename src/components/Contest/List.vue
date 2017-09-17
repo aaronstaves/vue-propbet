@@ -37,23 +37,27 @@
     <div class="spacer"></div>
 
     <div class="columns is-multiline">
-      <div v-for="(contest, index) in contests" class="column is-one-third">
+      <div v-for="(contest, index) in contests" class="column is-one-third-desktop is-half-tablet">
         <div class="card">
           <div class="card-title has-text-centered">
             <h2>{{ contest.name }}</h2>
           </div>
           <div class="card-content">
             <div class="content">
-              <div class="card-content-status-bar">
-                <span class="button status" v-bind:class="{ 'is-success': contest.isLive, 'is-info': contest.isUpcoming, 'is-light': contest.isPast }">
-                  <span v-if="contest.isLive">Live!</span>
-                  <span v-if="contest.isUpcoming">Upcoming</span>
-                  <span v-if="contest.isPast">Completed</span>
-                </span>
-                <strong class="timestamp status">September 21, 12:00pm - 6:00pm</strong>
+              <div class="card-content-status-bar level columns is-mobile">
+                <div class="level-left column is-one-quarter">
+                  <span class="level-item button status" v-bind:class="{ 'is-success': contest.isLive, 'is-info': contest.isUpcoming, 'is-light': contest.isPast }">
+                    <span v-if="contest.isLive">Live!</span>
+                    <span v-if="contest.isUpcoming">Upcoming</span>
+                    <span v-if="contest.isPast">Completed</span>
+                  </span>
+                </div>
+                <div class="level-right column">
+                  <strong class="level-item timestamp status">September 21, 12:00pm - 6:00pm</strong>
+                </div>
               </div>
             </div>
-            <div class="card-content-joined columns is-multiline">
+            <div class="card-content-joined columns is-mobile">
               <div class="column avatar-icon" v-for="joined in contest.joined">
                 <img :src="joined.photoURL">
               </div>
@@ -102,7 +106,7 @@ export default {
         name: 'Keen awesome contest',
         startTime: new Date(2017, 9, 21, 12, 30),
         endTime: new Date(2017, 9, 21, 6),
-        isLive: true,
+        isUpcoming: true,
         creator: {
           displayName: 'keen',
           photoURL: '/static/avatar/keen.gif',
@@ -156,9 +160,9 @@ div.avatar-icon {
 
 div.avatar-icon img {
   border-radius: 20px;
-  padding: 0;
   width: 36px;
   height: 36px;
+  padding: 0;
 }
 .card-content .status {
   font-size: 0.8em;
