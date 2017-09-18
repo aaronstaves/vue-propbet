@@ -174,9 +174,6 @@ div.avatar-icon img {
   font-weight: bold;
   color: #000;
 }
-.container {
-  padding-top: 40px;
-}
 p.title.is-bold {
   font-weight: bold;
 }

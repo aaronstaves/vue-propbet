@@ -1,7 +1,14 @@
 <template>
   <div class="container">
     <PropBetNav item-selected="contests"></PropBetNav>
-    <List/>     
+    <div class="level">
+      <div class="level-left">
+        <router-link to="/contest/create" class="button is-success">Create</router-link>
+      </div>
+      <div class="level-right">
+      </div>
+    </div>
+    <List/>
   </div>
 </template>
 

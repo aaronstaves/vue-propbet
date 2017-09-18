@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Contests from '@/components/Contests';
+import ContestCreateForm from '@/components/Contest/CreateForm';
 import Home from '@/components/Home';
 import Profile from '@/components/Profile';
 
@@ -21,6 +22,14 @@ export default new Router({
       path: '/contests',
       name: 'Contests',
       component: Contests,
+      meta: {
+        auth: true,
+      },
+    },
+    {
+      path: '/contest/create',
+      name: 'ContestCreate',
+      component: ContestCreateForm,
       meta: {
         auth: true,
       },

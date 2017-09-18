@@ -3,12 +3,14 @@
 import Vue from 'vue';
 import Buefy from 'buefy';
 import VueFire from 'vuefire';
+import VeeValidate from 'vee-validate';
+
 
 import App from '@/App';
 import router from '@/router';
 import { fb } from '@/helpers/firebase';
 
-
+Vue.use(VeeValidate);
 Vue.use(VueFire);
 Vue.use(Buefy);
 
